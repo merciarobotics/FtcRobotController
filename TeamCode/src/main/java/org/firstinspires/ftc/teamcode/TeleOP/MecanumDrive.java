@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.TeleOP;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 import org.firstinspires.ftc.teamcode.mechanisms.DriveTrain;
 
+@TeleOp
 public class MecanumDrive extends OpMode {
     DriveTrain driveTrain = new DriveTrain();
     double axial = -gamepad1.left_stick_y;
