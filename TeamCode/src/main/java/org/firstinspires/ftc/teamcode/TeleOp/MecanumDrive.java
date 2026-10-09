@@ -1,16 +1,12 @@
-package org.firstinspires.ftc.teamcode.TeleOP;
+package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.mechanisms.DriveTrain;
 
-@TeleOp
+@TeleOp(name = "Mecanum Drive", group = "TeleOp")
 public class MecanumDrive extends OpMode {
     DriveTrain driveTrain = new DriveTrain();
-    double axial = -gamepad1.left_stick_y;
-    double lateral = gamepad1.left_stick_x;
-    double yaw = gamepad1.right_stick_x;
-
 
     @Override
     public void init() {
@@ -19,9 +15,9 @@ public class MecanumDrive extends OpMode {
 
     @Override
     public void loop() {
-        double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-        double lateral =  gamepad1.left_stick_x;
-        double yaw     =  gamepad1.right_stick_x;
+        double axial = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
+        double lateral = gamepad1.left_stick_x;
+        double yaw = gamepad1.right_stick_x;
 
         double frontLeftPower = axial + lateral + yaw;
         double frontRightPower = axial - lateral - yaw;
