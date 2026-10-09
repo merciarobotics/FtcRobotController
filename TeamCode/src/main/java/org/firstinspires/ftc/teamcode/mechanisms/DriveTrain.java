@@ -3,34 +3,85 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class DriveTrain {
-    public DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
+    private DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
 
     public void init(HardwareMap hwMap) {
+
+        // This code maps the variables to the hardware i.e. the motors
+
         frontLeftMotor = hwMap.get(DcMotor.class, "FL");
         backLeftMotor = hwMap.get(DcMotor.class, "BL");
         frontRightMotor = hwMap.get(DcMotor.class, "FR");
         backRightMotor = hwMap.get(DcMotor.class, "BR");
 
-//        Motor directions - STILL TO BE DETERMINED TODO
+        // Motor directions
+
         frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotor.Direction.REVERSE);
-        frontRightMotor.setDirection(DcMotor.Direction.FORWARD);
-        backRightMotor.setDirection(DcMotor.Direction.FORWARD);
 
-/*        Motor mode:
-          RUN_USING_ENCODER tells the motor controller to use the motor's encoder feedback to regulate its speed.
-          An encoder measures how much a motor has rotated and can be used to determine its rotational speed.
- */
+        /*
+        Motor mode:
+        RUN_USING_ENCODER tells the motor controller to use the motor's encoder feedback to regulate its speed.
+        An encoder measures how much a motor has rotated and can be used to determine its rotational speed.
+         */
+
         frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-//        Brake when no power is applied
+        /*
+        This code makes the motors brake when no power is applied This means when you release the sticks,
+        the motors actively brake rather than letting the robot coast.
+        */
+
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    public void drive(double forward, double right, double rotate) {
+
+        /*
+        This code calculates how much power each of the four motors needs to move a mecanum-drive robot
+        in the desired direction. It combines forward (forward/backward movement), right (strafing left/right),
+        and rotate (turning) to calculate each wheel’s power independently.
+         */
+
+        double frontLeftPower = forward + right + rotate;
+        double frontRightPower = forward - right - rotate;
+        double backLeftPower = forward - right + rotate;
+        double backRightPower = forward + right - rotate;
+
+        /*
+        It then finds the largest absolute motor power using Math.max() and Math.abs(). If any power
+        exceeds 1.0 or falls below -1.0, it divides all four values by the largest absolute value to
+        keep them within the valid range of -1.0 to 1.0, while preserving their proportions.
+        */
+
+        double max;
+
+        max = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));
+        max = Math.max(max, Math.abs(backLeftPower));
+        max = Math.max(max, Math.abs(backRightPower));
+
+        if (max > 1.0) {
+            frontLeftPower /= max;
+            frontRightPower /= max;
+            backLeftPower /= max;
+            backRightPower /= max;
+        }
+
+        /*
+        Finally, setPower() sends the calculated power values to the four motors, making the robot
+        move according to the controller inputs.
+         */
+
+        frontLeftMotor.setPower(frontLeftPower);
+        backLeftMotor.setPower(backLeftPower);
+        frontRightMotor.setPower(frontRightPower);
+        backRightMotor.setPower(backRightPower);
     }
 }
 
