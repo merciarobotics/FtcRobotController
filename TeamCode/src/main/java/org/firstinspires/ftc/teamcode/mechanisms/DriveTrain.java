@@ -1,9 +1,14 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class DriveTrain {
     private DcMotor frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor;
+    private IMU imu;
 
     public void init(HardwareMap hwMap) {
 
@@ -39,20 +44,34 @@ public class DriveTrain {
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    }
 
-    public void drive(double forward, double right, double rotate) {
+        // Mapping the imu variable to the imu hardware
+
+        imu = hwMap.get(IMU.class, "imu");
+
+        // Sets the direction of the front facing direction of the robot and the direction of the USB on the control hub
+
+        RevHubOrientationOnRobot RevOrientation = new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+        );
+
+        // Initializes the IMU
+
+        imu.initialize(new IMU.Parameters(RevOrientation));
+    }
+    public void drive(double forward, double strafe, double rotate) {
 
         /*
         This code calculates how much power each of the four motors needs to move a mecanum-drive robot
-        in the desired direction. It combines forward (forward/backward movement), right (strafing left/right),
+        in the desired direction. It combines forward (forward/backward movement), strafe (strafing left/right),
         and rotate (turning) to calculate each wheel’s power independently.
          */
 
-        double frontLeftPower = forward + right + rotate;
-        double frontRightPower = forward - right - rotate;
-        double backLeftPower = forward - right + rotate;
-        double backRightPower = forward + right - rotate;
+        double frontLeftPower = forward + strafe + rotate;
+        double frontRightPower = forward - strafe - rotate;
+        double backLeftPower = forward - strafe + rotate;
+        double backRightPower = forward + strafe - rotate;
 
         /*
         It then finds the largest absolute motor power using Math.max() and Math.abs(). If any power
@@ -82,6 +101,24 @@ public class DriveTrain {
         backLeftMotor.setPower(backLeftPower);
         frontRightMotor.setPower(frontRightPower);
         backRightMotor.setPower(backRightPower);
+    }
+
+    public void driveFieldRelative(double forward, double strafe, double rotate) {
+        // Converts cartesian coordinates to polar coordinates
+
+        double theta = Math.atan2(forward, strafe);
+        double distance = Math.hypot(strafe, forward);
+
+        // Rotates the angle (theta) so we get the angle the robot is actually pointing in
+
+        theta = AngleUnit.normalizeRadians(theta - imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS));
+
+        // Converts polar coordinates back into cartesian coordinates
+
+        double newForward = distance * Math.sin(theta);
+        double newStrafe = distance * Math.cos(theta);
+
+        this.drive(newForward, newStrafe, rotate);
     }
 }
 
