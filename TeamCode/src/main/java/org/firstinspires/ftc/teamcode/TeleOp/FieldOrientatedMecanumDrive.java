@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.DriveTrain;
 @TeleOp(name = "Field Orientated Mecanum Drive", group = "TeleOp")
 public class FieldOrientatedMecanumDrive extends OpMode {
     DriveTrain driveTrain = new DriveTrain();
-    double forward, strafe, rotate;
+    double forward, strafe, rotate, multiplier;
 
     @Override
     public void init() {
@@ -21,6 +21,8 @@ public class FieldOrientatedMecanumDrive extends OpMode {
         strafe = gamepad1.left_stick_x;
         rotate = gamepad1.right_stick_x;
 
-        driveTrain.driveFieldRelative(forward, strafe, rotate);
+        multiplier = gamepad1.a ? 0.5 : 1;
+
+        driveTrain.driveFieldRelative(forward, strafe, rotate, multiplier);
     }
 }

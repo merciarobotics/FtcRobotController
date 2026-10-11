@@ -60,7 +60,7 @@ public class DriveTrain {
 
         imu.initialize(new IMU.Parameters(RevOrientation));
     }
-    public void drive(double forward, double strafe, double rotate) {
+    public void drive(double forward, double strafe, double rotate, double multiplier) {
 
         /*
         This code calculates how much power each of the four motors needs to move a mecanum-drive robot
@@ -97,13 +97,13 @@ public class DriveTrain {
         move according to the controller inputs.
          */
 
-        frontLeftMotor.setPower(frontLeftPower);
-        backLeftMotor.setPower(backLeftPower);
-        frontRightMotor.setPower(frontRightPower);
-        backRightMotor.setPower(backRightPower);
+        frontLeftMotor.setPower(multiplier * frontLeftPower);
+        backLeftMotor.setPower(multiplier * backLeftPower);
+        frontRightMotor.setPower(multiplier * frontRightPower);
+        backRightMotor.setPower(multiplier * backRightPower);
     }
 
-    public void driveFieldRelative(double forward, double strafe, double rotate) {
+    public void driveFieldRelative(double forward, double strafe, double rotate, double multiplier) {
         // Converts cartesian coordinates to polar coordinates
 
         double theta = Math.atan2(forward, strafe);
@@ -118,7 +118,7 @@ public class DriveTrain {
         double newForward = distance * Math.sin(theta);
         double newStrafe = distance * Math.cos(theta);
 
-        this.drive(newForward, newStrafe, rotate);
+        this.drive(newForward, newStrafe, rotate, multiplier);
     }
 }
 

@@ -19,6 +19,8 @@ public class MecanumDrive extends OpMode {
         double strafe = gamepad1.left_stick_x;
         double rotate = gamepad1.right_stick_x;
 
-        driveTrain.drive(forward, strafe, rotate);
+        double multiplier = gamepad1.a ? 0.5 : 1;
+
+        driveTrain.drive(forward, strafe, rotate, multiplier);
     }
 }
