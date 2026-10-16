@@ -11,6 +11,7 @@ public class FieldOrientatedMecanumDrive extends OpMode {
     DriveTrain driveTrain = new DriveTrain();
     IntakeMotor intakeMotor = new IntakeMotor();
     double forward, strafe, rotate, multiplier;
+    int c;
 
     @Override
     public void init() {
@@ -26,8 +27,16 @@ public class FieldOrientatedMecanumDrive extends OpMode {
 
         multiplier = gamepad1.a ? 0.5 : 1;
 
-        intakeMotor.setIntakePower(gamepad1.right_trigger);
-
         driveTrain.driveFieldRelative(forward, strafe, rotate, multiplier);
+
+
+        if ((c == 1)&&gamepad1.crossWasReleased()) {
+            c = -1;
+        }else if ((c == -1)&&gamepad1.crossWasReleased()) {
+            c = 1;
+        }
+
+        intakeMotor.setIntakePower(c*gamepad1.right_trigger);
+
     }
 }
