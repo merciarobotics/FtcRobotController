@@ -10,15 +10,14 @@ import org.firstinspires.ftc.teamcode.mechanisms.IntakeMotor;
 public class FieldOrientatedMecanumDrive extends OpMode {
     DriveTrain driveTrain = new DriveTrain();
     IntakeMotor intakeMotor = new IntakeMotor();
-    double forward, strafe, rotate, multiplier;
-    int intakePower = 1;
-    int c;
 
     @Override
     public void init() {
         driveTrain.init(hardwareMap);
         intakeMotor.init(hardwareMap);
     }
+    double forward, strafe, rotate, multiplier;
+    int c = 1; // constant used for revering the motor intake
 
     @Override
     public void loop() {
@@ -28,9 +27,10 @@ public class FieldOrientatedMecanumDrive extends OpMode {
 
         multiplier = gamepad1.a ? 0.5 : 1;
 
-        /*
+
         driveTrain.driveFieldRelative(forward, strafe, rotate, multiplier);
 
+        /*
 
         if ((c == 1)&&gamepad1.crossWasReleased()) {
             c = -1;
@@ -39,9 +39,14 @@ public class FieldOrientatedMecanumDrive extends OpMode {
         }
 
         intakeMotor.setIntakePower(c*gamepad1.right_trigger);
-        */
 
-        // after a heavy hand and great regret, the code above must be retired as the build team request only 100% poqwer :(
+        after a heavy hand and great regret,
+        the code above must be retired as
+        the build team request only 100% power
+
+        :(
+
+        */
 
         if ((c == 1)&&gamepad1.crossWasReleased()) {
             c = -1;
@@ -50,6 +55,10 @@ public class FieldOrientatedMecanumDrive extends OpMode {
         }
 
         if (gamepad1.right_trigger_pressed)
-            intakeMotor.setIntakePower(c*intakePower);
+            intakeMotor.setIntakePower(c);
+        else if (gamepad1.crossWasReleased()) {
+            intakeMotor.setIntakePower(0);
+        }
+
     }
 }
