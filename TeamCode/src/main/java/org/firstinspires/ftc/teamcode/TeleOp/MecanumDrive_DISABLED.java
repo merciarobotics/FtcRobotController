@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.IntakeMotor;
 
 @Disabled
 @TeleOp(name = "Robot Orientated Mecanum Drive", group = "TeleOp")
-public class MecanumDrive extends OpMode {
+public class MecanumDrive_DISABLED extends OpMode {
     DriveTrain driveTrain = new DriveTrain();
     IntakeMotor intakeMotor = new IntakeMotor();
 
