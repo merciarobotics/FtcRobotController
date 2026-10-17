@@ -56,7 +56,7 @@ public class FieldOrientatedMecanumDrive extends OpMode {
 
         if (gamepad1.right_trigger_pressed)
             intakeMotor.setIntakePower(c);
-        else if (gamepad1.crossWasReleased()) {
+        else {
             intakeMotor.setIntakePower(0);
         }
 
