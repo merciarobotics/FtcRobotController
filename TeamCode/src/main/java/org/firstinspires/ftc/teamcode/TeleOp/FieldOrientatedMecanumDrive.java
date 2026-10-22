@@ -55,7 +55,7 @@ public class FieldOrientatedMecanumDrive extends OpMode {
         }
         
 /*   OR:
-        if (gamepad1/crossWasReleased()) {
+        if (gamepad1.crossWasReleased()) {
             c = -c
         }
 */        
