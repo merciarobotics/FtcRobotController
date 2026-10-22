@@ -53,7 +53,12 @@ public class FieldOrientatedMecanumDrive extends OpMode {
         }else if ((c == -1)&&gamepad1.crossWasReleased()) {
             c = 1;
         }
-
+        
+/*   OR:
+        if (gamepad1/crossWasReleased()) {
+            c = -c
+        }
+*/        
         if (gamepad1.right_trigger_pressed)
             intakeMotor.setIntakePower(c);
         else {
