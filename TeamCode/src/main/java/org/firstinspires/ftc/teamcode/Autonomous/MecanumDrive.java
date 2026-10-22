@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.mechanisms.DriveTrain;
 
+@Autonomous
 public class MecanumDrive extends OpMode {
     DriveTrain driveTrain = new DriveTrain();
 
