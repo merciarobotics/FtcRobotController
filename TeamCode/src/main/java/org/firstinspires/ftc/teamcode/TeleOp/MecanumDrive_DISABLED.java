@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.mechanisms.DriveTrain;
 import org.firstinspires.ftc.teamcode.mechanisms.IntakeMotor;
 
-@Disabled
 @TeleOp(name = "Robot Orientated Mecanum Drive", group = "TeleOp")
 public class MecanumDrive_DISABLED extends OpMode {
     DriveTrain driveTrain = new DriveTrain();

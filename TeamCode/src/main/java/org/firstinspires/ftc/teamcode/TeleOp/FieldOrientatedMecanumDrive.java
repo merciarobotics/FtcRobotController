@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -17,12 +18,12 @@ public class FieldOrientatedMecanumDrive extends OpMode {
         intakeMotor.init(hardwareMap);
     }
     double forward, strafe, rotate, multiplier;
-    int c; // constant used for revering the motor intake
+    int c = 1; // constant used for revering the motor intake
 
     @Override
     public void loop() {
-        forward = -gamepad1.left_stick_y;
-        strafe = gamepad1.left_stick_x;
+        forward = gamepad1.left_stick_y;
+        strafe = -gamepad1.left_stick_x;
         rotate = gamepad1.right_stick_x;
 
         multiplier = gamepad1.a ? 0.5 : 1;
@@ -54,11 +55,12 @@ public class FieldOrientatedMecanumDrive extends OpMode {
             c = 1;
         }
         
-/*   OR:
-        if (gamepad1.crossWasReleased()) {
-            c = -c
-        }
-*/        
+        /*   OR:
+                if (gamepad1.crossWasReleased()) {
+                    c = -c
+                }
+        */
+
         if (gamepad1.right_trigger_pressed)
             intakeMotor.setIntakePower(c);
         else {
