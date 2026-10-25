@@ -26,40 +26,15 @@ public class FieldOrientatedMecanumDrive extends OpMode {
         strafe = -gamepad1.left_stick_x;
         rotate = gamepad1.right_stick_x;
 
-        multiplier = gamepad1.a ? 0.5 : 1;
+        multiplier = gamepad1.square ? 0.5 : 1;
 
 
         driveTrain.driveFieldRelative(forward, strafe, rotate, multiplier);
 
-        /*
-
-        if ((c == 1)&&gamepad1.crossWasReleased()) {
-            c = -1;
-        }else if ((c == -1)&&gamepad1.crossWasReleased()) {
-            c = 1;
+        if (gamepad1.crossWasReleased()) {
+            c = -c;
         }
 
-        intakeMotor.setIntakePower(c*gamepad1.right_trigger);
-
-        after a heavy hand and great regret,
-        the code above must be retired as
-        the build team request only 100% power
-
-        :(
-
-        */
-
-        if ((c == 1)&&gamepad1.crossWasReleased()) {
-            c = -1;
-        }else if ((c == -1)&&gamepad1.crossWasReleased()) {
-            c = 1;
-        }
-        
-        /*   OR:
-                if (gamepad1.crossWasReleased()) {
-                    c = -c
-                }
-        */
 
         if (gamepad1.right_trigger_pressed)
             intakeMotor.setIntakePower(c);
