@@ -22,8 +22,8 @@ public class FieldOrientatedMecanumDrive extends OpMode {
 
     @Override
     public void loop() {
-        forward = gamepad1.left_stick_y;
-        strafe = -gamepad1.left_stick_x;
+        forward = -gamepad1.left_stick_y;
+        strafe = gamepad1.left_stick_x;
         rotate = gamepad1.right_stick_x;
 
         multiplier = gamepad1.square ? 0.5 : 1;

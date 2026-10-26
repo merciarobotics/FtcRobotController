@@ -9,7 +9,7 @@ public class FlyWheelMotor {
     private DcMotor flyWheelMotor;
 
     public void init(HardwareMap hwMap) {
-        flyWheelMotor = hwMap.get(DcMotor.class, "flyWheel");
+        flyWheelMotor = hwMap.get(DcMotor.class, "fly_wheel");
         // should  rename to flywheel in config file
 
         flyWheelMotor.setDirection(DcMotor.Direction.FORWARD);

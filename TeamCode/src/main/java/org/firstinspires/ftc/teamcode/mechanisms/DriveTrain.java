@@ -55,8 +55,8 @@ public class DriveTrain {
         // Sets the direction of the front facing direction of the robot and the direction of the USB on the control hub
 
         RevHubOrientationOnRobot RevOrientation = new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD
+                RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
+                RevHubOrientationOnRobot.UsbFacingDirection.LEFT
 
                 //       *there may be a potential error with the USB facind direction*
         );
