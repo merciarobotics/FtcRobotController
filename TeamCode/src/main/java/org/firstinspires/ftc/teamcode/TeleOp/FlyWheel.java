@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.mechanisms.FlyWheelMotor;
 @TeleOp(name = "FlyWheel", group = "TeleOp")
 public class FlyWheel extends OpMode {
     FlyWheelMotor flywheelMotor = new FlyWheelMotor();
-    int c = 1;
 
     @Override
     public void init() {
@@ -17,17 +16,6 @@ public class FlyWheel extends OpMode {
 
     @Override
     public void loop() {
-        if (gamepad1.crossWasReleased()) {
-            c = -c;
-        }
-
-        if (gamepad1.circleWasReleased() && flywheelMotor.getMotorPower() == 0) {
-            flywheelMotor.setFlyWheelMotor(c);
-        } else if (gamepad1.circleWasReleased() && flywheelMotor.getMotorPower() != 0) {
-            flywheelMotor.setFlyWheelMotor(0);
-        } else {
-            flywheelMotor.setFlyWheelMotor(gamepad1.left_trigger*c);
-        }
 
     }
 }

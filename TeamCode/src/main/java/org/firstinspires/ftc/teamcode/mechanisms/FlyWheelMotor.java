@@ -18,8 +18,4 @@ public class FlyWheelMotor {
     public void setFlyWheelMotor(double  power) {
         flyWheelMotor.setPower(power);
     }
-
-    public double getMotorPower() {
-        return flyWheelMotor.getPower();
-    }
 }
