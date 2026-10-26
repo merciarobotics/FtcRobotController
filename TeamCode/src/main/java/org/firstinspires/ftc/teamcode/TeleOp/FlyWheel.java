@@ -22,9 +22,9 @@ public class FlyWheel extends OpMode {
             c = -c;
         }
 
-        if (gamepad1.circleWasReleased()) {
+        if (gamepad1.circleWasReleased() && flywheelMotor.getMotorPower() == 0) {
             flywheelMotor.setFlyWheelMotor(c);
-        } else if (gamepad1.squareWasReleased()) {
+        } else if (gamepad1.circleWasReleased() && flywheelMotor.getMotorPower() != 0) {
             flywheelMotor.setFlyWheelMotor(0);
         } else {
             flywheelMotor.setFlyWheelMotor(gamepad1.left_trigger*c);
