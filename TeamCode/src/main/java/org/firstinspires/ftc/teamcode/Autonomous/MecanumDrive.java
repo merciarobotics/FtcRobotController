@@ -20,14 +20,24 @@ public class MecanumDrive extends OpMode {
     public void loop() {
         if (!completed) {
             /*
-            The `try-catch` blocks pauses the current thread for 3 seconds and handle any interruption,
+            The `try-catch` blocks pauses the current thread for a specific amount of time
+            (2000 - 2 seconds, 500 - half of a second) and handle any interruption,
             restoring the thread’s interrupted status and exiting the current method if interrupted.
             */
 
             driveTrain.drive(1,0, 0, 1);
 
             try {
-                Thread.sleep(3000);
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+
+            driveTrain.drive(0,0, 0, 1);
+
+            try {
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 return;
@@ -36,9 +46,9 @@ public class MecanumDrive extends OpMode {
             driveTrain.drive(-1,0,0,1);
 
             try {
-                Thread.sleep(3000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();;
+                Thread.currentThread().interrupt();
                 return;
             }
 
