@@ -56,8 +56,6 @@ public class DriveTrain {
         RevHubOrientationOnRobot RevOrientation = new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                 RevHubOrientationOnRobot.UsbFacingDirection.LEFT
-
-                //       *there may be a potential error with the USB facind direction*
         );
 
         // Initializes the IMU
