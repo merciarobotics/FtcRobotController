@@ -54,5 +54,9 @@ public class FieldOrientatedMecanumDrive extends OpMode {
         }
 
         flyWheelMotor.setFlyWheelMotor(gamepad1.left_trigger * fly_wheel_motor_c);
+
+        // --------------- Telemetry ----------------
+
+        telemetry.addData("Fly wheel motor power", gamepad1.left_trigger * fly_wheel_motor_c);
     }
 }
